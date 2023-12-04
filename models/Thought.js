@@ -1,6 +1,4 @@
-// thought model here
-
-// reaction will be a subdocument here
+// This file houses the Thought model, with the reactionSchema subdocument
 
 const mongoose = require('mongoose');
 

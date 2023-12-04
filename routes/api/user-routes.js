@@ -1,15 +1,10 @@
-// user routes here
-
-// get all, get by _id, post, put by _id, delete by _id
-
-// /api/users/:userID/friends/:friendID goes here as well I think (post/delete)
+// This file houses the requests for api/users
 
 const router = require('express').Router();
 
-// Import any controllers needed here
+// User route controllers here
 const { getAllUsers, getUserById, createUser, updateUserById, deleteUserById, addFriendToUser, deleteFriendFromUser } = require('../../controllers/user.controller');
 
-// Declare the routes that point to the controllers above
 router.get("/", async (req, res) => {
   try {
     const payload = await getAllUsers()

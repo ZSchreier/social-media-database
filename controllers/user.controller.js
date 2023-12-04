@@ -1,4 +1,4 @@
-// user controls here
+// This file handles the functions used when a user pings user routes
 
 const { User } = require('../models');
 const Model = User; 
@@ -47,7 +47,6 @@ async function deleteItemById(id) {
   }
 }
 
-// post to add a new friend to a user's friend list
 async function addFriendToUser(userId, friendId){
   try{
     const currentUser = await Model.findById(userId)
@@ -62,7 +61,6 @@ async function addFriendToUser(userId, friendId){
   }
 }
 
-// delete to remove a friend from a user's friend list
 async function deleteFriendFromUser(userId, friendId){
   try{
 

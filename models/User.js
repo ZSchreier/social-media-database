@@ -1,4 +1,4 @@
-// user model here
+// This file houses the User model
 
 const {model, Schema} = require('mongoose');
 

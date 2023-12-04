@@ -1,13 +1,10 @@
-// same deal as user-routes I think
-
-// /api/thoughts/:thoughtId/reactions
+// This file controls what happens on the various routes/requests for /api/thoughts
 
 const router = require('express').Router();
 
-// Import any controllers needed here
+// Import statements for the controllers
 const { getAllThoughts, getThoughtById, createThought, updateThoughtById, deleteThoughtById, addReactionToThought, deleteReactionFromThought } = require('../../controllers/thought.controller');
 
-// Declare the routes that point to the controllers above
 router.get("/", async (req, res) => {
   try {
     const payload = await getAllThoughts()
@@ -62,6 +59,7 @@ router.post("/:thoughtId/reactions", async (req, res) => {
   }
 })
 
+// I will be honest, this route gave me a lot of difficulty as I misread the provided documentation and didn't realize I was allowed to add the :reactionId value to the route at first
 router.delete("/:thoughtId/reactions/:reactionId", async (req, res) => {
   try {
     const payload = await deleteReactionFromThought(req.params.thoughtId, req.params.reactionId)

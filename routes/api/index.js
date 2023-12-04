@@ -1,4 +1,4 @@
-// designates user versus thought routes
+// This file designates user versus thought routes
 
 const router = require('express').Router();
 const userRoutes = require('./user-routes');

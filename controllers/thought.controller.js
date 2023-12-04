@@ -1,4 +1,4 @@
-// thought controls here
+// This file holds all the functions that run when the user pings a thought route
 
 const { Thought, User } = require('../models');
 const Model = Thought; 
@@ -19,6 +19,7 @@ async function getItemById(id) {
   }
 }
 
+// This function has the additional part of making sure the thought id is added to the user
 async function createItem(data) {
   try {
     const payload = await Model.create(data);
@@ -55,7 +56,6 @@ async function deleteItemById(id) {
   }
 }
 
-// post to add a new reaction to a thought
 async function addReactionToThought(thoughtId, reqBody){
   try{
     const currentThought = await Model.findById(thoughtId)
@@ -70,7 +70,7 @@ async function addReactionToThought(thoughtId, reqBody){
   }
 }
 
-// delete to remove a reaction by ID from a thought
+// This function needed a for loop to find the entirety of the react sub-document object in order to properly remove it from the thought itself
 async function deleteReactionFromThought(thoughtId, reactId){
   try{
     const currentThought = await Model.findById(thoughtId)
