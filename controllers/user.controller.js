@@ -50,9 +50,11 @@ async function deleteItemById(id) {
 // post to add a new friend to a user's friend list
 async function addFriendToUser(userId, friendId){
   try{
+    const currentUser = await Model.findById(userId)
+    const currentFriends = currentUser.friends
     return await Model.findOneAndUpdate(
       {_id: userId},
-      {friends: [...friends, friendId]},
+      {friends: [...currentFriends, friendId]},
       {new: true}
     )
   }catch(err){
@@ -63,9 +65,10 @@ async function addFriendToUser(userId, friendId){
 // delete to remove a friend from a user's friend list
 async function deleteFriendFromUser(userId, friendId){
   try{
+
     return await Model.findOneAndUpdate(
       {_id: userId},
-      {friends: friends.splice(friends.indexOf(friendId), 1)},
+      {$pull: {friends: friendId}},
       {new: true}
     )
   }catch(err){

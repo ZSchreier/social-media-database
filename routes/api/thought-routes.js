@@ -62,9 +62,9 @@ router.post("/:thoughtId/reactions", async (req, res) => {
   }
 })
 
-router.delete("/:thoughtId/reactions", async (req, res) => {
+router.delete("/:thoughtId/reactions/:reactionId", async (req, res) => {
   try {
-    const payload = await deleteReactionFromThought(req.params.thoughtId, req.body)
+    const payload = await deleteReactionFromThought(req.params.thoughtId, req.params.reactionId)
     res.status(200).json({ result: "success"})
   } catch(err){
     res.status(500).json({ result: "error", payload: err.message })

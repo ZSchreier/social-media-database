@@ -1,6 +1,6 @@
 // thought controls here
 
-const { Thought } = require('../models');
+const { Thought, User } = require('../models');
 const Model = Thought; 
 
 async function getAllItems() {
@@ -21,7 +21,15 @@ async function getItemById(id) {
 
 async function createItem(data) {
   try {
-    return await Model.create(data);
+    const payload = await Model.create(data);
+    const userCreated = await User.findById(data.userId)
+    const currentThoughts = userCreated.thoughts
+    await User.findOneAndUpdate(
+      {_id: data.userId},
+      {thoughts: [...currentThoughts, payload._id]},
+      {new: true}
+      )
+    return payload;
   } catch (err) {
     throw new Error(err)
   }
@@ -50,9 +58,11 @@ async function deleteItemById(id) {
 // post to add a new reaction to a thought
 async function addReactionToThought(thoughtId, reqBody){
   try{
+    const currentThought = await Model.findById(thoughtId)
+    const currentReactions = currentThought.reactions
     return await Model.findOneAndUpdate(
       {_id: thoughtId},
-      {reactions: [...reactions, reqBody]},
+      {reactions: [...currentReactions, reqBody]},
       {new: true}
     )
   }catch(err){
@@ -61,18 +71,19 @@ async function addReactionToThought(thoughtId, reqBody){
 }
 
 // delete to remove a reaction by ID from a thought
-async function deleteReactionFromThought(thoughtId, reqBody){
+async function deleteReactionFromThought(thoughtId, reactId){
   try{
-    const thought = Model.findById(thoughtId)
-    const reactionToDelete = []
-    for(x=0; x<thought.reactions.length; x++){
-      if(reqBody === thought.reactions[x].reactionId){
-        reactionToDelete.push(x)
+    const currentThought = await Model.findById(thoughtId)
+    const currentReactions = currentThought.reactions
+    const removal = []
+    for(x=0; x<currentReactions.length; x++){
+      if(currentReactions[x].reactionId == reactId){
+        removal.push(currentReactions[x])
       }
     }
     return await Model.findOneAndUpdate(
-      {_id: userId},
-      {reactions: reactions.splice(reactions.indexOf(reactionToDelete[0]), 1)},
+      {_id: thoughtId},
+      {$pull: {reactions: removal[0]}},
       {new: true}
     )
   }catch(err){

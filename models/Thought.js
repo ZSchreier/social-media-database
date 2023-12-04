@@ -4,6 +4,28 @@
 
 const mongoose = require('mongoose');
 
+const reactionSchema = new mongoose.Schema({
+  reactionId: {
+    type: mongoose.Types.ObjectId,
+    default: new mongoose.Types.ObjectId
+  },
+  reactionBody: {
+    type: String,
+    required: [true, 'reaction body needed'],
+    maxLength: [280, 'max 280 characters please']
+  },
+  username: {
+    type: String,
+    required: [true, 'username required for thought']
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+    get: formatReactionCreatedAt
+  }
+}
+)
+
 const thoughtSchema = new mongoose.Schema(
   {
     thoughtText: {
@@ -29,28 +51,6 @@ const thoughtSchema = new mongoose.Schema(
     timestamps: true
   }
 );
-
-const reactionSchema = new mongoose.Schema({
-    reactionId: {
-      type: mongoose.Types.ObjectId,
-      default: new mongoose.Types.ObjectId
-    },
-    reactionBody: {
-      type: String,
-      required: [true, 'reaction body needed'],
-      maxLength: [280, 'max 280 characters please']
-    },
-    username: {
-      type: String,
-      required: [true, 'username required for thought']
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now(),
-      get: formatReactionCreatedAt
-    }
-  }
-)
 
 function formatThoughtCreatedAt(createdAt){
   const formatTime = createdAt.toUTCString()
