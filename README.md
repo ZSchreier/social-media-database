@@ -6,6 +6,6 @@ The goal of this project was to create a MongoDB backend for a social media site
 
 ## Preview
 
-The video linked here provides an example walkthrough of the requests that can be made, along with a brief showing of the code: [Video Link](https://www.google.com)
+The video linked here provides an example walkthrough of the requests that can be made, along with a brief showing of the code: [Video Link](https://drive.google.com/file/d/1OaDkeHalx4WM79vPWpXUFpNxAk0boQVN/view)
 
-Provided here is a screenshot of Insomnia with a successful request: ![An image showin Insomnia displaying a successful request]()
+Provided here is a screenshot of Insomnia with a successful request: ![An image showin Insomnia displaying a successful request](./social-test.PNG)
